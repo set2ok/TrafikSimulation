@@ -18,7 +18,19 @@ public class Lane {
         this.length = (int) Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
-    public void printer() {
+    public int getWidth() {
+        return width;
+    }
 
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
+
+    public int getLength() {
+        return length;
     }
 }

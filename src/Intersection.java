@@ -1,11 +1,25 @@
+import java.util.List;
+
 public class Intersection {
-    private Lane lane1;
-    private Lane lane2;
+    private Lane StartLane;
+    private List<Lane> EndLanes;
     private Point intersectionPoint;
 
-        public Intersection(Lane lane1, Lane lane2, Point intersectionPoint) {
-            this.lane1 = lane1;
-            this.lane2 = lane2;
+        public Intersection(Lane StartLane, List<Lane> EndLanes, Point intersectionPoint) {
+            this.StartLane = StartLane;
+            this.EndLanes = EndLanes;
             this.intersectionPoint = intersectionPoint;
         }
+
+    public Lane getStartLane() {
+        return StartLane;
+    }
+
+    public List<Lane> getEndLane() {
+        return EndLanes;
+    }
+
+    public Point getIntersectionPoint() {
+        return intersectionPoint;
+    }
 }
