@@ -1,17 +1,11 @@
-import java.util.List;
 
 public class SimulationController {
-    private final SimulationBoard board;
+    private SimulationBoard simBoard;
 
-    public SimulationController(SimulationBoard board) {
-        this.board = board;
+    public SimulationController(SimulationBoard simBoard){
+        this.simBoard = simBoard;
     }
+    public void step(){
 
-    // Advance one simulation step
-    public void step() {
-        List<Car> cars = board.getCars();
-        for (Car c : cars) {
-            continue;
-        }
     }
 }
