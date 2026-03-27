@@ -1,19 +1,24 @@
 import java.util.List;
 
 public class SimulationBoard {
-    private List<Lane> Lanes;
+    private List<Lane> lanes;
     private List<Car> cars;
+    private static final SimulationBoard INSTANCE = new SimulationBoard();
 
+    private SimulationBoard() {
+    this.lanes = new java.util.ArrayList<>();
+    this.cars = new java.util.ArrayList<>();
+    }
 
-    public SimulationBoard(List<Lane> lanes, List<Car> cars) {
-        this.Lanes = lanes;
-        this.cars = cars;
+    public static SimulationBoard getInstance() {
+        return INSTANCE;
     }
     public void addCar(Car car) {
         this.cars.add(car);
     }
+
     public void addLane(Lane lane) {
-        this.Lanes.add(lane);
+        this.lanes.add(lane);
     }
 
     public List<Car> getCars() {
@@ -21,6 +26,6 @@ public class SimulationBoard {
     }
 
     public List<Lane> getLanes() {
-        return Lanes;
+        return lanes;
     }
 }

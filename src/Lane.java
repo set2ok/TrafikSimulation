@@ -4,18 +4,19 @@ public class Lane {
     private int width;
     private Point start;
     private Point end;
-    private int length;
+    private double length;
 
-    public Lane(Point start, Point end) {
+    public Lane(Point start, Point end, int width) {
         this.start = start;
         this.end = end;
+        this.width = width;
         calculateLength();
     }
 
     private void calculateLength() {
-        int xDiff = end.getX() - start.getX();
-        int yDiff = end.getY() - start.getY();
-        this.length = (int) Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+        float xDiff = end.getX() - start.getX();
+        float yDiff = end.getY() - start.getY();
+        this.length = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
     public int getWidth() {
@@ -30,7 +31,7 @@ public class Lane {
         return end;
     }
 
-    public int getLength() {
+    public double getLength() {
         return length;
     }
 }
