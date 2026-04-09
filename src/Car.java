@@ -1,7 +1,7 @@
 public class Car implements Actor {
-    Lane currentLane;
-    int positionOnLane; // Position of the car on the lane
-    int speed; // Speed of the car (units per time step)
+    private Lane currentLane;
+    private int positionOnLane; // Position of the car on the lane
+    private int speed; // Speed of the car (units per time step)
 
     public Car(Lane lane, int speed) {
         this.currentLane = lane;
