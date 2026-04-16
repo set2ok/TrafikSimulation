@@ -15,6 +15,10 @@ public class Point {
         return y;
     }
     public void printer() {
-        System.out.println("The point is at: " + x + ", " + y);
+        System.out.println("(" + x + ", " + y + ")");
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }

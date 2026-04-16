@@ -1,6 +1,6 @@
 public class Car implements Actor {
     private Lane currentLane;
-    private int positionOnLane; // Position of the car on the lane
+    private float positionOnLane; // Position of the car on the lane
     private int speed; // Speed of the car (units per time step)
 
     public Car(Lane lane, int speed) {
@@ -11,7 +11,7 @@ public class Car implements Actor {
 
     public void move() {
         // Move the car forward based on its speed
-        int newPosition = positionOnLane + speed;
+        float newPosition = positionOnLane + (float) (speed / currentLane.getLength());
         setPositionOnLane(newPosition);
     }
 
@@ -19,11 +19,11 @@ public class Car implements Actor {
         return currentLane;
     }
 
-    public int getPositionOnLane() {
+    public float getPositionOnLane() {
         return positionOnLane;
     }
 
-    public void setPositionOnLane(int positionOnLane) {
+    public void setPositionOnLane(float positionOnLane) {
         this.positionOnLane = positionOnLane;
     }
 
