@@ -29,7 +29,7 @@ public class SimulationGui {
         frame.add(controlPanel, BorderLayout.SOUTH);
 
         // Timer som driver simuleringen framåt (10 FPS)
-        timer = new Timer(100, e -> {
+        timer = new Timer(10, e -> {
             controller.step();
             boardPanel.repaint();
         });
@@ -59,9 +59,8 @@ public class SimulationGui {
         addCarBtn.addActionListener(e -> {
             int laneIndex = laneSelector.getSelectedIndex();
             if (laneIndex >= 0 && lanes != null) {
-                // Lägg till en bil på vald väg med hastighet 5
-                Car car = new Car(lanes.get(laneIndex), 5);
-                simBoard.addCar(car);
+                // Lägg till en bil på vald väg
+                controller.addCar(lanes.get(laneIndex), 0, 1);
                 boardPanel.repaint();
             }
         });
@@ -184,12 +183,8 @@ public class SimulationGui {
                     if (lane == null || lane.getStart() == null || lane.getEnd() == null) continue;
 
                     // Räkna ut procentuell position på vägen (0.0 till 1.0)
-                    double t = 0.0;
-                    if (lane.getLength() > 0) {
-                        t = (double) car.getPositionOnLane() / lane.getLength();
-                        // Se till att bilen inte ritas utanför vägen
-                        t = Math.max(0.0, Math.min(1.0, t));
-                    }
+                    double t = car.getPositionOnLane();
+
 
                     double sx = originX + (lane.getStart().getX() - minX) * scale;
                     double sy = originY + (lane.getStart().getY() - minY) * scale;

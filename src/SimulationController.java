@@ -26,11 +26,16 @@ public class SimulationController {
 
     }
 
+    public void addCar(Lane lane, float position, float speed) {
+        Car car = new Car(lane, speed, position, turner);
+        simBoard.addCar(car);
+    }
+
     // Advance one simulation step
     public void step() {
         List<Car> cars = simBoard.getCars();
         for (Car c : cars) {
-            continue;
+            c.move();
         }
     }
 }

@@ -1,33 +1,41 @@
-public class Car implements Actor {
-    private Lane currentLane;
-    private float positionOnLane; // Position of the car on the lane
-    private int speed; // Speed of the car (units per time step)
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-    public Car(Lane lane, int speed) {
-        this.currentLane = lane;
-        this.speed = speed;
-        this.positionOnLane = 0; // Start at the beginning of the lane
+public class Car extends Vehicle implements Actor {
+
+    public Car(Lane lane, float speed , float positionOnLane, Turner turner) {
+        super(lane, speed, positionOnLane, turner);
     }
 
+    @Override
     public void move() {
-        // Move the car forward based on its speed
-        float newPosition = positionOnLane + (float) (speed / currentLane.getLength());
-        setPositionOnLane(newPosition);
+        float newPositionOnLane = newPosition(positionOnLane);
+        List<Intersection> intersections = turner.getTurns(positionOnLane, newPositionOnLane, currentLane);
+        if (!intersections.isEmpty()) {
+            Random rand = new Random();
+            Intersection intersection = intersections.get(rand.nextInt(intersections.size())); // Assuming we take the first intersection for simplicity
+            int index = rand.nextInt(intersection.getEndLanes().size() + 1);
+            if (index <= intersection.getEndLanes().size()-1) {
+                Lane newLane = intersection.getEndLanes().get(index);
+                float newPosition = intersection.getEndLanePositions().get(index);
+                setCurrentLane(newLane);
+                newPositionOnLane = newPosition; // Move the car to the new lane at the
+            }
+
+        }
+
+        setPositionOnLane(newPositionOnLane);
+    }
+    private float newPosition(float pos){
+        float newPosition = pos + (float) (speed / currentLane.getLength());
+        if (newPosition > 1) {
+            newPosition = 1; // Cap the position at the end of the lane
+        }
+        if (newPosition < 0) {
+            newPosition = 0; // Ensure the position does not go below the start of the lane
+        }
+        return newPosition;
     }
 
-    public Lane getCurrentLane() {
-        return currentLane;
-    }
-
-    public float getPositionOnLane() {
-        return positionOnLane;
-    }
-
-    public void setPositionOnLane(float positionOnLane) {
-        this.positionOnLane = positionOnLane;
-    }
-
-    public void setCurrentLane(Lane currentLane) {
-        this.currentLane = currentLane;
-    }
 }

@@ -3,7 +3,7 @@ import java.util.List;
 public class Turner {
     List<Intersection> intersections;
     public Turner() {
-
+    // SINGLETON??
     }
     public void createIntersections(List<Lane> lanes) {
         List<Intersection> allIntersections = new ArrayList<>();
@@ -65,6 +65,16 @@ public class Turner {
         }
 
         return null; // Intersection point is outside the line segments
+    }
+
+    public List<Intersection> getTurns(float pos1, float pos2, Lane lane) {
+        List<Intersection> activeIntersections = new ArrayList<>();
+        for (Intersection i : intersections) {
+            if (i.getStartLane() == lane && i.getStartLanePosition() > pos1 && i.getStartLanePosition() < pos2) {
+            activeIntersections.add(i);
+            }
+        }
+        return activeIntersections;
     }
 
 
