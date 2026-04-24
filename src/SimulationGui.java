@@ -60,7 +60,7 @@ public class SimulationGui {
             int laneIndex = laneSelector.getSelectedIndex();
             if (laneIndex >= 0 && lanes != null) {
                 // Lägg till en bil på vald väg
-                controller.addCar(lanes.get(laneIndex), 0, 1);
+                controller.addCar(lanes.get(laneIndex), 0, 10);
                 boardPanel.repaint();
             }
         });

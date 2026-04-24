@@ -3,7 +3,7 @@ import java.util.List;
 public class SimulationBoard {
     private List<Lane> lanes;
     private List<Car> cars;
-    private static final SimulationBoard INSTANCE = new SimulationBoard();
+    private static final SimulationBoard instance = new SimulationBoard();
 
     private SimulationBoard() {
     this.lanes = new java.util.ArrayList<>();
@@ -11,7 +11,7 @@ public class SimulationBoard {
     }
 
     public static SimulationBoard getInstance() {
-        return INSTANCE;
+        return instance;
     }
     public void addCar(Car car) {
         this.cars.add(car);

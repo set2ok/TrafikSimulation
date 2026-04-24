@@ -15,8 +15,18 @@ public class Car extends Vehicle implements Actor {
         if (!intersections.isEmpty()) {
             Random rand = new Random();
             Intersection intersection = intersections.get(rand.nextInt(intersections.size())); // Assuming we take the first intersection for simplicity
-            int index = rand.nextInt(intersection.getEndLanes().size() + 1);
-            if (index <= intersection.getEndLanes().size()-1) {
+            int index = 0;
+            int dif = 1;
+            if (intersection.getStartLanePosition() >=1 ){
+                index = rand.nextInt(intersection.getEndLanes().size());
+                dif = 0;
+            }
+            else{
+                index = rand.nextInt(intersection.getEndLanes().size() + 1);
+
+            }
+
+            if (index <= intersection.getEndLanes().size()-dif) {
                 Lane newLane = intersection.getEndLanes().get(index);
                 float newPosition = intersection.getEndLanePositions().get(index);
                 setCurrentLane(newLane);

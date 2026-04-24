@@ -13,7 +13,7 @@ public class Turner {
             for (int j = 0; j < lanes.size(); j++) {
                 if (i != j) {
                     // Logic to check if lane i and lane j intersect
-                    float[] intersectionPoints = calculateIntersectionPoints(lanes.get(i), lanes.get(j));
+                    float[] intersectionPoints = getIntersectionsForLanes(lanes.get(i), lanes.get(j));
                     if (intersectionPoints != null) {
 
                         allIntersections.add(new Intersection(lanes.get(i), List.of(lanes.get(j)), intersectionPoints[0], List.of(intersectionPoints[1])));
@@ -39,15 +39,30 @@ public class Turner {
         this.intersections = allIntersections;
     }
 
-    private float[] calculateIntersectionPoints(Lane lane1, Lane lane2) {
+    private float[] getIntersectionsForLanes(Lane lane1, Lane lane2) {
+
+        float[] intersectionPoints = calculateIntersectionPoints(lane1, lane2);
+
+        if (intersectionPoints == null) {
+            return null; // Lines are parallel, no intersection
+        }
+
+        if (intersectionPoints[0] >= 0 && intersectionPoints[0] <= 1 && intersectionPoints[1] >= 0 && intersectionPoints[1] <= 1) {
+            return intersectionPoints;
+        }
+
+        return null; // Intersection point is outside the line segments
+    }
+
+    public float[] calculateIntersectionPoints(Lane lane1, Lane lane2) {
         // Extract coordinates for readability
-        float x1 = lane1.getStart().getX(), y1 = lane1.getStart().getY();
-        float x2 = lane1.getEnd().getX(),   y2 = lane1.getEnd().getY();
-        float x3 = lane2.getStart().getX(), y3 = lane2.getStart().getY();
-        float x4 = lane2.getEnd().getX(),   y4 = lane2.getEnd().getY();
+        double x1 = lane1.getStart().getX(), y1 = lane1.getStart().getY();
+        double x2 = lane1.getEnd().getX(), y2 = lane1.getEnd().getY();
+        double x3 = lane2.getStart().getX(), y3 = lane2.getStart().getY();
+        double x4 = lane2.getEnd().getX(), y4 = lane2.getEnd().getY();
 
         // Calculate the denominator
-        float D = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+        double D = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
         // Check for parallel lines using a small epsilon
         if (Math.abs(D) < 0.000001f) {
@@ -55,22 +70,17 @@ public class Turner {
         }
 
         // represents the point's position along lane1 (0 to 1)
-        float lane1Point = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / D;
+        float lane1Point = (float) (((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / D);
         // represents the point's position along lane2 (0 to 1)
-        float lane2Point = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / D;
-
-        // 4. Check if the intersection happens within the bounds of both segments
-        if (lane1Point >= 0 && lane1Point <= 1 && lane2Point >= 0 && lane2Point <= 1) {
-            return new float[]{lane1Point, lane2Point};
-        }
-
-        return null; // Intersection point is outside the line segments
+        float lane2Point = (float) (((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / D);
+    return new float[]{lane1Point, lane2Point};
     }
 
     public List<Intersection> getTurns(float pos1, float pos2, Lane lane) {
+        // Return all intersections that occur on the given lane between pos1 and pos2
         List<Intersection> activeIntersections = new ArrayList<>();
         for (Intersection i : intersections) {
-            if (i.getStartLane() == lane && i.getStartLanePosition() > pos1 && i.getStartLanePosition() < pos2) {
+            if (i.getStartLane() == lane && i.getStartLanePosition() >= pos1 && i.getStartLanePosition() <= pos2) {
             activeIntersections.add(i);
             }
         }
