@@ -41,6 +41,7 @@ public class LanesGenerator {
     }
 
     public void generateMainLanes(int amount, int boxSize){
+        // Generate random lanes
         int i = 0;
         Lane[] tempLanes = new Lane[amount];
         for ( i = 0; i < amount; i++) {
@@ -51,6 +52,7 @@ public class LanesGenerator {
             Lane lane = new Lane(new Point(x1, y1), new Point(x2, y2), 10);
             tempLanes[i] = lane;
         }
+        // For each lane, find the largest and smallest intersection points with other lanes, and create a new lane between those points
         Turner turner = new Turner();
         Lane[] lanes = new Lane[amount];
         for (int j = 0; j < tempLanes.length; j++) {
@@ -64,22 +66,31 @@ public class LanesGenerator {
                     }
                     if (points[0] < smallestPoint) {
                         smallestPoint = points[0];
+                    }
                 }
             }
-
-        }
         lanes[j] = new Lane(tempLanes[j].getPointAtPosition(smallestPoint), tempLanes[j].getPointAtPosition(largestPoint), 10);
         }
-    for (int j = 0; j < lanes.length; j++) {
-        board.addLane(lanes[j]);
-        i = j;
-        while (i == j || lanes[j].getStart().equals(lanes[i].getStart())) {
-            i = rand.nextInt(lanes.length);
-        }
-        Lane lane = new Lane(lanes[j].getEnd(), lanes[i].getStart(), 10);
-        board.addLane(lane);
-        }
+        // TODO - bug with creation oevrlaping lanes
+        for (int j = 0; j < lanes.length; j++) {
+            board.addLane(lanes[j]);
+            i = j;
+            float distnanceSum = 0;
+            for (int k = 0; k < lanes.length; k++) {
+                if (k != j || (lanes[j].getStart().getX() != lanes[k].getStart().getX() && lanes[j].getStart().getY() != lanes[k].getStart().getY())) {
+                    float distance = (float) ((Math.sqrt(Math.pow(lanes[j].getStart().getX() - lanes[k].getStart().getX(), 2) + Math.pow(lanes[j].getStart().getY() - lanes[k].getStart().getY(), 2))) + (Math.sqrt(Math.pow(lanes[j].getStart().getX() - lanes[k].getEnd().getX(), 2) + Math.pow(lanes[j].getStart().getY() - lanes[k].getEnd().getY(), 2))));
+                    if (distance > distnanceSum) {
+                        distnanceSum = distance;
+                        i = k;
+                    }
+                }
+
+            }
+            
+            Lane lane = new Lane(lanes[j].getEnd(), lanes[i].getStart(), 10);
+            board.addLane(lane);
+            }
 
 
-    }
+        }
 }

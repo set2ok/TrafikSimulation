@@ -5,7 +5,7 @@ public class Main {
         SimulationBoard simBoard = SimulationBoard.getInstance();
         SimulationController controller = new SimulationController(simBoard);
         LanesGenerator generator = new LanesGenerator(simBoard);
-        generator.generateMainLanes(8, 200);
+        generator.generateMainLanes(4, 100);
         controller.createIntersections();
         controller.printIntersections();
         SimulationGui gui = new SimulationGui(simBoard, controller);
