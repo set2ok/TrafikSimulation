@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         SimulationBoard simBoard = SimulationBoard.getInstance();
         SimulationController controller = new SimulationController(simBoard);
-        LanesGenerator generator = new LanesGenerator(simBoard);
-        generator.generateMainLanes(4, 100);
+        LanesGenerator generator = new LanesGenerator(controller);
+        generator.generateMainLanes(3, 500);
         controller.createIntersections();
         controller.printIntersections();
         SimulationGui gui = new SimulationGui(simBoard, controller);

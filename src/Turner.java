@@ -27,7 +27,8 @@ public class Turner {
         for (Intersection i : allIntersections) {
             if (!toRemove.contains(i)) {
                 for (Intersection j : allIntersections) {
-                    if (i != j && i.getStartLane() == j.getStartLane() && i.getStartLanePosition().equals(j.getStartLanePosition()) ) {
+                    if (i != j && i.getStartLane() == j.getStartLane() &&
+                            Math.abs(i.getStartLanePosition() - j.getStartLanePosition()) < 0.05f) {
                         i.mergeWith(j);
                         toRemove.add(j);
                     }
@@ -47,7 +48,7 @@ public class Turner {
             return null; // Lines are parallel, no intersection
         }
 
-        if (intersectionPoints[0] >= 0 && intersectionPoints[0] <= 1 && intersectionPoints[1] >= 0 && intersectionPoints[1] <= 1) {
+        if (intersectionPoints[0] >= -0.01 && intersectionPoints[0] <= 1 && intersectionPoints[1] >= 0 && intersectionPoints[1] <= 1.01) {
             return intersectionPoints;
         }
 
@@ -86,6 +87,17 @@ public class Turner {
         }
         return activeIntersections;
     }
+
+    public boolean isLastIntersection(Intersection interesection) {
+        for (Intersection i : intersections) {
+            if (i.getStartLane() == interesection.getStartLane() && i.getStartLanePosition() > interesection.getStartLanePosition()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
 
 

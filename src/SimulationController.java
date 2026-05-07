@@ -31,6 +31,10 @@ public class SimulationController {
         simBoard.addCar(car);
     }
 
+    public void addLane(Lane lane) {
+        simBoard.addLane(lane);
+    }
+
     // Advance one simulation step
     public void step() {
         List<Car> cars = simBoard.getCars();

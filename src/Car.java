@@ -14,7 +14,7 @@ public class Car extends Vehicle implements Actor {
         List<Intersection> intersections = turner.getTurns(positionOnLane, newPositionOnLane, currentLane);
         if (!intersections.isEmpty()) {
             Random rand = new Random();
-            Intersection intersection = intersections.get(rand.nextInt(intersections.size())); // Assuming we take the first intersection for simplicity
+            Intersection intersection = intersections.get(rand.nextInt(intersections.size()));
             int index = 0;
             int dif = 1;
             if (intersection.getStartLanePosition() >=1 ){
@@ -38,6 +38,7 @@ public class Car extends Vehicle implements Actor {
         setPositionOnLane(newPositionOnLane);
     }
     private float newPosition(float pos){
+        // TODO: ADD DRIVING BEHAVIOR - if there is a car in front of this car, slow down or stop
         float newPosition = pos + (float) (speed / currentLane.getLength());
         if (newPosition > 1) {
             newPosition = 1; // Cap the position at the end of the lane

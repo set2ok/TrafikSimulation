@@ -11,6 +11,18 @@ public class Intersection {
             this.startLane = StartLane;
             this.endLanes = new ArrayList<>(EndLanes);
             this.startLanePosition = StartLanePosition;
+            if (startLanePosition > 1f && startLanePosition < 1.01F){
+                this.startLanePosition = 1f;
+            }
+            else if (startLanePosition >= 0.98F){
+                this.startLanePosition = 1f;
+            }
+            if (startLanePosition < 0f && startLanePosition > -0.01F){
+                this.startLanePosition = 0f;
+            }
+            else if (startLanePosition <= 0.02F){
+                this.startLanePosition = 0f;
+            }
             this.endLanePositions = new ArrayList<>(EndLanePosition);
         }
 
