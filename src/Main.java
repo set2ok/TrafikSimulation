@@ -1,16 +1,14 @@
 import java.util.List;
 
 public class Main {
-    private List<Lane> lanes;
     public static void main(String[] args) {
-
-        Point start = new Point(0, 0);
-        Point end = new Point(10,10);
-        Lane lane1 = new Lane(start, end);
+        SimulationBoard simBoard = SimulationBoard.getInstance();
+        SimulationController controller = new SimulationController(simBoard);
+        LanesGenerator generator = new LanesGenerator(controller);
+        generator.generateMainLanes(3, 500);
+        controller.createIntersections();
+        controller.printIntersections();
+        SimulationGui gui = new SimulationGui(simBoard, controller);
     }
 
-    public List<Intersection> getIntersections() {
-        // Logic to calculate intersections between lanes
-        return null; // Placeholder return
-    }
 }

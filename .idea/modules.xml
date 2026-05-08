@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/trafik_control.iml" filepath="$PROJECT_DIR$/trafik_control.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TrafikSimulation.iml" filepath="$PROJECT_DIR$/TrafikSimulation.iml" />
     </modules>
   </component>
 </project>
