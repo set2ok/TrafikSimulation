@@ -3,12 +3,14 @@ public abstract class Vehicle {
     protected float positionOnLane;
     protected float speed;
     protected Turner turner;
+    protected SimulationBoard simBoard;
 
-    public Vehicle(Lane lane, float speed, float positionOnLane, Turner turner) {
+    public Vehicle(Lane lane, float speed, float positionOnLane, Turner turner, SimulationBoard simBoard) {
         this.currentLane = lane;
         this.speed = speed;
         this.positionOnLane = positionOnLane;
         this.turner = turner;
+        this.simBoard = simBoard;
     }
 
     public abstract void move();

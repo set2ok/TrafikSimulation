@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class Turner {
     List<Intersection> intersections;
+
     public Turner() {
     // SINGLETON??
     }

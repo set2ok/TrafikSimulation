@@ -27,7 +27,7 @@ public class SimulationController {
     }
 
     public void addCar(Lane lane, float position, float speed) {
-        Car car = new Car(lane, speed, position, turner);
+        Car car = new Car(lane, speed, position, turner, simBoard);
         simBoard.addCar(car);
     }
 

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class SimulationBoard {
     private List<Lane> lanes;
@@ -6,13 +7,22 @@ public class SimulationBoard {
     private static final SimulationBoard instance = new SimulationBoard();
 
     private SimulationBoard() {
-    this.lanes = new java.util.ArrayList<>();
-    this.cars = new java.util.ArrayList<>();
+    this.lanes = new ArrayList<>();
+    this.cars = new ArrayList<>();
     }
 
     public static SimulationBoard getInstance() {
         return instance;
     }
+
+    public List<Point> getCarPoints(){
+        List<Point> carPoints = new ArrayList<>();
+        for (Car car : cars){
+            carPoints.add(car.getCurrentLane().getPointAtPosition(car.getPositionOnLane()));
+        }
+    return carPoints;
+    }
+
     public void addCar(Car car) {
         this.cars.add(car);
     }
