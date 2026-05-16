@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class Car extends Vehicle implements Actor {
 
-    public Car(Lane lane, float speed , float positionOnLane, Turner turner, SimulationBoard simBoard) {
-        super(lane, speed, positionOnLane, turner, simBoard);
+    public Car(Lane lane, float speed , float positionOnLane, Turner turner) {
+        super(lane, speed, positionOnLane, turner);
     }
 
     @Override
-    public void move() {
-        ActorStrategy strategy = new AvoidCrash(turner, new RandomMove(turner), simBoard.getCarPoints());
+    public void move(List<Point> points) {
+        ActorStrategy strategy = new AvoidCrash(turner, new RandomMove(turner), points);
         Action newAction = strategy.nextMove(positionOnLane, speed, currentLane);
 
         setPositionOnLane(newAction.getNewPos());

@@ -14,11 +14,11 @@ public class LaneValidator {
         return distance >= MIN_DISTANCE;
     }
 
-    public static boolean isValidLane(Lane lane, Lane[] existingLanes) {
-        for (int i = 0; i < existingLanes.length; i++) {
-            if (existingLanes[i] != null) {
+    public static boolean isValidLane(Lane lane, List<Lane> existingLanes) {
+        for (int i = 0; i < existingLanes.size(); i++) {
+            if (existingLanes.get(i) != null) {
 
-                if (!isValidLaneDistance(lane, existingLanes[i])) {
+                if (!isValidLaneDistance(lane, existingLanes.get(i))) {
                     return false; // Lane is too close to an existing lane
                 }
             }

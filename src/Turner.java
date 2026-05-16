@@ -49,6 +49,17 @@ public class Turner {
             return null; // Lines are parallel, no intersection
         }
 
+        // REJECT: Both lanes end at or near this point (dead end trap)
+        if ((intersectionPoints[0] > 0.95f && intersectionPoints[1] > 0.95f) ||
+                (intersectionPoints[0] < 0.05f && intersectionPoints[1] < 0.05f)) {
+            return null;
+        }
+
+        // REJECT: Lane1 ends but lane2 also ends (no exit for car)
+        if (intersectionPoints[0] > 0.95f && intersectionPoints[1] > 0.95f) {
+            return null;
+        }
+
         if (intersectionPoints[0] >= -0.01 && intersectionPoints[0] <= 1 && intersectionPoints[1] >= 0 && intersectionPoints[1] <= 1.01) {
             return intersectionPoints;
         }
@@ -82,7 +93,7 @@ public class Turner {
         // Return all intersections that occur on the given lane between pos1 and pos2
         List<Intersection> activeIntersections = new ArrayList<>();
         for (Intersection i : intersections) {
-            if (i.getStartLane() == lane && i.getStartLanePosition() >= pos1 && i.getStartLanePosition() <= pos2) {
+            if (i.getStartLane() == lane && i.getStartLanePosition() >= pos1 - 0.000001f && i.getStartLanePosition() <= pos2 + 0.000001f) {
             activeIntersections.add(i);
             }
         }
